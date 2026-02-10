@@ -26,7 +26,6 @@ export function formatNumber(n: number): string {
   return Math.floor(n).toString();
 }
 
-// Seed-based pseudo-random for level generation consistency
 export function seededRandom(seed: number): () => number {
   let s = seed;
   return () => {
@@ -35,22 +34,18 @@ export function seededRandom(seed: number): () => number {
   };
 }
 
-// Generate positions in a cluster around a center point
-export function generateClusterPositions(
-  count: number,
-  centerX: number,
-  centerY: number,
-  spread: number
-): { x: number; y: number }[] {
-  const positions: { x: number; y: number }[] = [];
+export function easeOutCubic(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
 
-  for (let i = 0; i < count; i++) {
-    const angle = (i / count) * Math.PI * 2 + (i * 0.618) * Math.PI * 2;
-    const r = Math.sqrt(i / count) * spread;
-    positions.push({
-      x: centerX + Math.cos(angle) * r,
-      y: centerY + Math.sin(angle) * r,
-    });
-  }
-  return positions;
+export function easeOutElastic(t: number): number {
+  if (t === 0 || t === 1) return t;
+  return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * ((2 * Math.PI) / 3)) + 1;
+}
+
+export function hexToRgba(hex: string, alpha: number): string {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r},${g},${b},${alpha})`;
 }

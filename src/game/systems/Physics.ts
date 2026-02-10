@@ -40,13 +40,14 @@ export function checkObstacleCollision(crowd: Crowd, obstacle: ObstacleData): bo
 
   const dx = Math.abs(crowd.x - obstacle.x);
   const dy = Math.abs(crowd.y - obstacle.y);
-  const crowdRadius = 20;
+  // Use dynamic crowd radius based on actual spread
+  const crowdRadius = Math.max(15, crowd.getSpread() * 0.5);
 
   return dx < (obstacle.width / 2 + crowdRadius) && dy < (obstacle.height / 2 + crowdRadius);
 }
 
 export function applyObstacleDamage(crowd: Crowd): number {
-  const damage = Math.max(1, Math.floor(crowd.count * 0.15));
+  const damage = Math.max(1, Math.floor(crowd.count * 0.12));
   crowd.removeUnits(damage);
   return damage;
 }

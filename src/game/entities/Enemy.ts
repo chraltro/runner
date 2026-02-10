@@ -17,7 +17,7 @@ export class Enemy extends Crowd {
       this.defeated = true;
       this.count = 0;
       return {
-        playerRemaining: Math.ceil(remaining / unitPower),
+        playerRemaining: Math.floor(remaining / unitPower),
         enemyRemaining: 0,
       };
     } else {
